@@ -50,9 +50,9 @@ const renderStudents2 = () => {
             <button class="btn btn-info" onclick="getStudent2('${student2.id}')">Cập nhật</button>
           </td>
      </tr>`;
-    console.log(student2, htmlContent);
+    
   }
-  console.log(htmlContent);
+  
   document.getElementById("tableDanhSach").innerHTML = htmlContent;
 };
 
@@ -154,7 +154,7 @@ const getStudent2 = (id) => {
     method: "GET",
   })
     .then((res) => {
-      console.log(res);
+      
 
 
       document.getElementById("btnThem").click();
