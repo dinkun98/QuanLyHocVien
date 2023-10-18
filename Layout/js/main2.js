@@ -1,14 +1,14 @@
-let studentList = [];
+let studentList2 = [];
 
 //Function 1: lấy danh sách sinh viên từ backend
-const fetchStudents = () => {
+const fetchStudents2 = () => {
   axios({
-    url: "https://6512e3cbb8c6ce52b3966a85.mockapi.io/qlbh",
+    url: "https://6512e3cbb8c6ce52b3966a85.mockapi.io/Products",
     method: "GET",
   })
     .then((res) => {
-      studentList = res.data;
-      renderStudents();
+      studentList2 = res.data;
+      renderStudents2();
     })
     .catch((err) => {
       console.log(err);
@@ -16,7 +16,7 @@ const fetchStudents = () => {
 };
 
 //function 2: hiển thị danh sách sinh viên ra màn hình
-const renderStudents = () => {
+const renderStudents2 = () => {
   //giao diện của một sinh viên
   // <tr>
   //   <td>123</td>
@@ -30,27 +30,27 @@ const renderStudents = () => {
   // </tr>;
   //Duyệt  studentList, có bao nhiêu SV => <tr>
   let htmlContent = "";
-  for (let student of studentList) {
-    let toan1 = Number(student.toan);
-    let ly1 = Number(student.ly);
-    let hoa1 = Number(student.hoa);
-    let dtb = (toan1 + ly1 + hoa1) / 3;
+  for (let student2 of studentList2) {
+
+    let luong = Number(student2.luongTheoNgay);
+    let ngayLam = Number(student2.soNgayLam);
+    let tongLuong = luong * ngayLam;
+    tongLuong2 = tongLuong.toLocaleString();
     htmlContent += `
     <tr>
-         <td>${student.ma}</td>
-         <td>${student.hoTen}</td>
-         <td>${student.email}</td>
-         <td>${student.diaChi}</td>
-         <td>${student.toan}</td>
-         <td>${student.ly}</td>
-         <td>${student.hoa}</td>
-          <td>${dtb}</td>
+         <td>${student2.ma}</td>
+         <td>${student2.hoTen}</td>
+         <td>${student2.email}</td>
+         <td>${student2.diaChi}</td>
+         <td>${student2.soNgayLam}</td>
+         <td>${student2.luongTheoNgay}</td>
+         <td>${tongLuong2}</td>
           <td>
-            <button class="btn btn-danger" onclick="deleteStudent('${student.id}')">Xóa</button>
-            <button class="btn btn-info" onclick="getStudent('${student.id}')">Cập nhật</button>
+            <button class="btn btn-danger" onclick="deleteStudent2('${student2.id}')">Xóa</button>
+            <button class="btn btn-info" onclick="getStudent2('${student2.id}')">Cập nhật</button>
           </td>
      </tr>`;
-    console.log(student, htmlContent);
+    console.log(student2, htmlContent);
   }
   console.log(htmlContent);
   document.getElementById("tableDanhSach").innerHTML = htmlContent;
@@ -58,18 +58,17 @@ const renderStudents = () => {
 
 
 //function 3 : thêm sinh viên
-const addStudent = () => {
-  const studentMa = document.getElementById("mssv").value;
+const addStudent2 = () => {
+  const studentMa = document.getElementById("manv").value;
   const name = document.getElementById("name").value;
   const email = document.getElementById("email").value;
   const diaChi = document.getElementById("diaChi").value;
-  const math = document.getElementById("math").value;
-  const physics = document.getElementById("physics").value;
-  const chemistry = document.getElementById("chemistry").value;
-
+  const soNgayLam = document.getElementById("ngayLam").value;
+  const luongTheoNgay = document.getElementById("luong").value;
+ 
   var valid = kiemTraRong(
     studentMa,
-    "#tbmssv",
+    "#tbmanv",
     "Mã không được để trống!"
   );
 
@@ -86,47 +85,41 @@ const addStudent = () => {
 
   valid &= kiemTraRong(
     diaChi,
-    "#tbdiachi",
+    "#tbdiaChi",
     "địa chỉ không được để trống"
   );
 
   valid &= kiemTraRong(
-    math,
-    "#tbtoan",
-    "toán không được để trống"
+    soNgayLam,
+    "#tbsongaylam",
+    "số ngày làm không được để trống"
   );
 
   valid &= kiemTraRong(
-    physics,
-    "#tbly",
+    luongTheoNgay,
+    "#tbluongtheongay",
     "Lý không được để trống"
   );
 
-  valid &= kiemTraRong(
-    chemistry,
-    "#tbhoa",
-    "hoá không được để trống"
-  );
 
   if (valid) {
-    const newStudent = new Student(
+    const newStudent = new Employee(
       name,
       diaChi,
       studentMa,
       email,
-      math,
-      physics,
-      chemistry
+      soNgayLam,
+      luongTheoNgay
     );
 
     axios({
-      url: "https://6512e3cbb8c6ce52b3966a85.mockapi.io/qlbh",
+      url: "https://6512e3cbb8c6ce52b3966a85.mockapi.io/Products",
       method: "POST",
       data: newStudent,
     })
       .then((res) => {
         //fetch danh sách student mới
-        fetchStudents();
+        fetchStudents2();
         document.getElementById("btnClose").click();
       })
       .catch((err) => {
@@ -138,13 +131,13 @@ const addStudent = () => {
 };
 
 //function 4: Xóa sinh viên
-const deleteStudent = (id) => {
+const deleteStudent2 = (id) => {
   axios({
-    url: `https://6512e3cbb8c6ce52b3966a85.mockapi.io/qlbh/${id}`,
+    url: `https://6512e3cbb8c6ce52b3966a85.mockapi.io/Products/${id}`,
     method: "DELETE",
   })
     .then((res) => {
-      fetchStudents();
+      fetchStudents2();
     })
     .catch((err) => {
       console.log(err);
@@ -155,9 +148,9 @@ const deleteStudent = (id) => {
 document.getElementById("")
 
 // function 5: lấy thông tin của sinh viên muốn cập nhật và show lên form
-const getStudent = (id) => {
+const getStudent2 = (id) => {
   axios({
-    url: `https://6512e3cbb8c6ce52b3966a85.mockapi.io/qlbh/${id}`,
+    url: `https://6512e3cbb8c6ce52b3966a85.mockapi.io/Products/${id}`,
     method: "GET",
   })
     .then((res) => {
@@ -166,13 +159,13 @@ const getStudent = (id) => {
 
       document.getElementById("btnThem").click();
 
-      document.getElementById("mssv").value = res.data.ma;
+      document.getElementById("manv").value = res.data.ma;
       document.getElementById("name").value = res.data.hoTen;
       document.getElementById("email").value = res.data.email;
       document.getElementById("diaChi").value = res.data.diaChi;
-      document.getElementById("math").value = res.data.toan;
-      document.getElementById("physics").value = res.data.ly;
-      document.getElementById("chemistry").value = res.data.hoa;
+      document.getElementById("ngayLam").value = res.data.soNgayLam;
+      document.getElementById("luong").value = res.data.luongTheoNgay;
+      
 
       document.getElementById('btnUpdate').setAttribute('data-id', res.data.id)
 
@@ -184,18 +177,17 @@ const getStudent = (id) => {
 
 //function 6: cập nhật thông tin sinh viên
 
-const updateStudent = () => {
-  const studentMa = document.getElementById("mssv").value;
+const updateStudent2 = () => {
+    const studentMa = document.getElementById("manv").value;
   const name = document.getElementById("name").value;
   const email = document.getElementById("email").value;
   const diaChi = document.getElementById("diaChi").value;
-  const math = document.getElementById("math").value;
-  const physics = document.getElementById("physics").value;
-  const chemistry = document.getElementById("chemistry").value;
-
+  const soNgayLam = document.getElementById("ngayLam").value;
+  const luongTheoNgay = document.getElementById("luong").value;
+ 
   var valid = kiemTraRong(
     studentMa,
-    "#tbmssv",
+    "#tbmanv",
     "Mã không được để trống!"
   );
 
@@ -212,44 +204,39 @@ const updateStudent = () => {
 
   valid &= kiemTraRong(
     diaChi,
-    "#tbdiachi",
+    "#tbdiaChi",
     "địa chỉ không được để trống"
   );
 
   valid &= kiemTraRong(
-    math,
-    "#tbtoan",
-    "toán không được để trống"
+    soNgayLam,
+    "#tbsongaylam",
+    "số ngày làm không được để trống"
   );
 
   valid &= kiemTraRong(
-    physics,
-    "#tbly",
+    luongTheoNgay,
+    "#tbluongtheongay",
     "Lý không được để trống"
   );
 
-  valid &= kiemTraRong(
-    chemistry,
-    "#tbhoa",
-    "hoá không được để trống"
-  );
+ 
 
   if (valid) {
-    const updatedStudent = new Student(
-      name,
-      diaChi,
-      studentMa,
-      email,
-      math,
-      physics,
-      chemistry
+    const updatedStudent = new Employee(
+        name,
+        diaChi,
+        studentMa,
+        email,
+        soNgayLam,
+        luongTheoNgay
     );
 
     const id = document.getElementById('btnUpdate').getAttribute('data-id')
 
 
     axios({
-      url: `https://6512e3cbb8c6ce52b3966a85.mockapi.io/qlbh/${id}`,
+      url: `https://6512e3cbb8c6ce52b3966a85.mockapi.io/Products/${id}`,
       method: "PUT",
       data: updatedStudent,
     })
@@ -261,7 +248,7 @@ const updateStudent = () => {
         document.getElementById("btnClose").click();
 
         //fetch danh sách student mới
-        fetchStudents();
+        fetchStudents2();
       })
       .catch((err) => {
         console.log(err);
@@ -271,13 +258,13 @@ const updateStudent = () => {
 
 };
 
-document.getElementById('btnXep').onclick = function () {
+document.getElementById('btnXep2').onclick = function () {
   axios({
-    url: "https://6512e3cbb8c6ce52b3966a85.mockapi.io/qlbh",
+    url: "https://6512e3cbb8c6ce52b3966a85.mockapi.io/Products",
     method: "GET",
   })
     .then((res) => {
-      studentList = res.data.sort(
+      studentList2 = res.data.sort(
         function (a, b) {
           if (a.hoTen < b.hoTen) { return -1; }
           if (a.hoTen > b.hoTen) { return 1; }
@@ -285,11 +272,11 @@ document.getElementById('btnXep').onclick = function () {
         }
       );
 
-      renderStudents();
+      renderStudents2();
     })
     .catch((err) => {
       console.log(err);
     });
 }
 
-fetchStudents();
+fetchStudents2();

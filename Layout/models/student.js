@@ -14,6 +14,11 @@ class Student extends Person {
     this.ly = ly;
     this.hoa = hoa;
   }
+
+  dtb(){
+    let dtb = Number(this.toan + this.ly + this.hoa)/3;
+    return dtb;
+  }
 }
 
 class Employee extends Person {

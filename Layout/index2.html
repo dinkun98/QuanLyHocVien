@@ -37,17 +37,16 @@
 
         <ul class="list-unstyled components">
           <li class="active">
-            <a href="#">
+            <a href="./index.html">
               <i class="fa fa-home"></i>
               Học viên
             </a>
           </li>
           <li>
-            <a href="./index2.html">
+            <a href="#">
               <i class="fa fa-briefcase"></i>
               Giảng viên
             </a>
-            
           </li>
 
           <li>
@@ -68,13 +67,13 @@
               <div class="row">
                 <div class="col-md-6">
                   <h3 class="text-left text-primary font-weight-bold">
-                    Danh sách sinh viên
+                    Danh sách nhân viên
                   </h3>
                 </div>
                 <div class="col-md-6 text-right">
                   <button
                     class="btn btn-primary"
-                    id="btnXep"
+                    id="btnXep2"
                   >
                     Sắp xếp
                   </button>
@@ -84,7 +83,7 @@
                     data-toggle="modal"
                     data-target="#myModal"
                   >
-                    Thêm sinh viên
+                    Thêm nhân viên
                   </button>
                 </div>
               </div>
@@ -113,17 +112,18 @@
                 <thead class="text-primary">
                   <tr>
                     <th class="nowrap">
-                      <span class="mr-1">Mã sinh viên</span>
+                      <span class="mr-1">Mã giáo viên</span>
                       <i class="fa fa-arrow-up" id="SapXepTang"></i>
                       <i class="fa fa-arrow-down" id="SapXepGiam"></i>
                     </th>
                     <th>Họ tên</th>
                     <th>Email</th>
                     <th>Địa chỉ</th>
-                    <th>Điểm Toán</th>
-                    <th>Điểm Lý</th>
-                    <th>Điểm Hóa</th>
-                    <th>Điểm trung bình</th>
+                    <th>Số ngày làm</th>
+                    <th>Lương theo giờ</th>
+                    <th>tổng lương</th>
+
+                   
 
                     <th><em class="fa fa-cog"></em></th>
                   </tr>
@@ -151,7 +151,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <header class="head-form mb-0">
-            <h2 id="header-title">Form sinh viên</h2>
+            <h2 id="header-title">Form nhân viên</h2>
           </header>
 
           <!-- Modal Header -->
@@ -171,15 +171,15 @@
                     ></span>
                   </div>
                   <input
-                    type="mssv"
-                    name="mssv"
-                    id="mssv"
+                    type="manv"
+                    name="manv"
+                    id="manv"
                     class="form-control input-sm"
-                    placeholder="Mã số sinh viên"
+                    placeholder="Mã số giảng viên"
                   />
                   
                 </div>
-                <span class="btn-danger" id="tbmssv"></span>
+                <span class="btn-danger" id="tbmanv"></span>
               </div>
 
               <div class="form-group">
@@ -228,14 +228,14 @@
                     ></span>
                   </div>
                   <input
-                    type="text"
+                    type="diaChi"
                     name="diaChi"
                     id="diaChi"
                     class="form-control input-sm"
-                    placeholder="địa chỉ"
+                    placeholder="Địa chỉ"
                   />
                 </div>
-                <span class="btn-danger" id="tbdiachi"></span>
+                <span class="btn-danger" id="tbdiaChi"></span>
 
               </div>
 
@@ -248,15 +248,16 @@
                   </div>
                   <input
                     type="text"
-                    name="math"
-                    id="math"
+                    name="ngayLam"
+                    id="ngayLam"
                     class="form-control input-sm"
-                    placeholder="Điểm toán"
+                    placeholder="số ngày làm"
                   />
                 </div>
-                <span class="btn-danger" id="tbtoan"></span>
+                <span class="btn-danger" id="tbsongaylam"></span>
 
               </div>
+
               <div class="form-group">
                 <div class="input-group">
                   <div class="input-group-prepend">
@@ -266,33 +267,16 @@
                   </div>
                   <input
                     type="text"
-                    name="physics"
-                    id="physics"
+                    name="luong"
+                    id="luong"
                     class="form-control input-sm"
-                    placeholder="Điểm lý"
+                    placeholder="lương theo ngày"
                   />
-                
                 </div>
-                <span class="btn-danger" id="tbly"></span>
+                <span class="btn-danger" id="tbluongtheongay"></span>
+
               </div>
-              <div class="form-group">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"
-                      ><i class="fa fa-envelope"></i
-                    ></span>
-                  </div>
-                  <input
-                    type="text"
-                    name="chemistry"
-                    id="chemistry"
-                    class="form-control input-sm"
-                    placeholder="Điểm Hóa"
-                  />
-               
-                </div>
-                <span class="btn-danger" id="tbhoa"></span>
-              </div>
+             
               <button type="reset" class="d-none" id="btnReset">reset</button>
             </form>
           </div>
@@ -303,21 +287,21 @@
               id="btnAdd"
               type="button"
               class="btn btn-success"
-              onclick="addStudent()"
+              onclick="addStudent2()"
             >
-              Thêm sinh viên
+              Thêm nhân viên
             </button>
             <button
               id="btnUpdate"
               type="button"
               class="btn btn-success"
-              onclick="updateStudent()"
+              onclick="updateStudent2()"
             >
               Cập nhật
             </button>
             <button
               id="btnClose"
-              type="button"
+              type="button"D
               class="btn btn-danger"
               data-dismiss="modal"
             >
@@ -354,7 +338,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
     <script src="./js/validation.js"></script>
     <script src="./models/student.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/main2.js"></script>
 
     <script type="text/javascript">
       $(document).ready(function () {
